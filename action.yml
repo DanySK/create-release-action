@@ -18,6 +18,7 @@ runs:
   steps:
     - name: Check whether a tag exists
       id: check-for-tags
+      shell: bash
       run: |
         echo "::set-output name=tag-exists::$([ "$(git tag)" ] && echo true || echo false)"
     - name: Build Changelog
