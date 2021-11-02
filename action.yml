@@ -1,5 +1,6 @@
 name: 'Create release'
 description: 'Create a Release computing the changelog based on commits.'
+
 inputs:
   artifacts:
     description: 'An optional set of paths representing artifacts to upload to the release. This may be a single path or a comma delimited list of paths (or globs). E.g., "release.tar.gz,foo/*.txt".'
@@ -11,11 +12,17 @@ inputs:
   version:
     description: 'The version that will be created.'
     required: true
+
 runs:
   using: "composite"
   steps:
+    - name: Check whether a tag exists
+      id: check-for-tags
+      run: |
+        echo "::set-output name=tag-exists::$([ "$(git tag)" ] && echo true || echo false)"
     - name: Build Changelog
       id: changelog
+      if: contains(steps.check-for-tags.outputs.tag-exists, 'true')
       uses: mikepenz/release-changelog-builder-action@v1
       with:
         commitMode: true
