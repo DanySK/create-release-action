@@ -29,7 +29,7 @@ runs:
         commitMode: true
         ignorePreReleases: true
       env:
-        GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ inputs.token }}
     - uses: ncipollo/release-action@v1
       name: Create GitHub Release
       with:
