@@ -16,25 +16,15 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Check whether a tag exists
-      id: check-for-tags
-      shell: bash
-      run: |
-        echo "::set-output name=tag-exists::$([ "$(git tag)" ] && echo true || echo false)"
     - name: Build Changelog
-      id: changelog
-      if: contains(steps.check-for-tags.outputs.tag-exists, 'true')
-      uses: mikepenz/release-changelog-builder-action@v1
+      uses: danysk/compute-changelog-action@0.1.9
       with:
-        commitMode: true
-        ignorePreReleases: true
-      env:
-        GITHUB_TOKEN: ${{ inputs.token }}
+        token: ${{ inputs.token }}
     - uses: ncipollo/release-action@v1
       name: Create GitHub Release
       with:
         tag: ${{ inputs.version }}
         replacesArtifacts: true
         token: ${{ inputs.token }}
-        body: ${{ steps.changelog.outputs.changelog }}
+        body: CHANGELOG.md
         artifacts: ${{ inputs.artifacts }}
