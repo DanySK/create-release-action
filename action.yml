@@ -26,5 +26,5 @@ runs:
         tag: ${{ inputs.version }}
         replacesArtifacts: true
         token: ${{ inputs.token }}
-        body: CHANGELOG.md
+        bodyFile: CHANGELOG.md
         artifacts: ${{ inputs.artifacts }}
