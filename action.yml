@@ -17,7 +17,7 @@ runs:
   using: "composite"
   steps:
     - name: Build Changelog
-      uses: danysk/compute-changelog-action@0.1.57
+      uses: danysk/compute-changelog-action@0.1.59
       with:
         token: ${{ inputs.token }}
     - uses: ncipollo/release-action@v1
